@@ -1,0 +1,313 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ========================================
+   DESIGN SYSTEM — CSS CUSTOM PROPERTIES
+   ======================================== */
+
+@theme {
+  /* Primary palette — Indigo/Violet */
+  --color-primary-50: oklch(0.97 0.02 280);
+  --color-primary-100: oklch(0.93 0.04 280);
+  --color-primary-200: oklch(0.87 0.08 280);
+  --color-primary-300: oklch(0.78 0.12 275);
+  --color-primary-400: oklch(0.68 0.17 272);
+  --color-primary-500: oklch(0.58 0.22 270);
+  --color-primary-600: oklch(0.50 0.24 268);
+  --color-primary-700: oklch(0.43 0.22 268);
+  --color-primary-800: oklch(0.36 0.18 270);
+  --color-primary-900: oklch(0.30 0.14 272);
+
+  /* Accent palette — Cyan/Teal */
+  --color-accent-400: oklch(0.78 0.15 195);
+  --color-accent-500: oklch(0.70 0.17 195);
+  --color-accent-600: oklch(0.60 0.16 195);
+
+  /* Success */
+  --color-success-400: oklch(0.78 0.16 155);
+  --color-success-500: oklch(0.68 0.17 155);
+
+  /* Warning */
+  --color-warning-400: oklch(0.82 0.15 80);
+  --color-warning-500: oklch(0.75 0.17 70);
+
+  /* Error */
+  --color-error-400: oklch(0.70 0.18 25);
+  --color-error-500: oklch(0.62 0.22 25);
+
+  /* Surface colors — used for panels, cards, backgrounds */
+  --color-surface-0: oklch(0.99 0.00 0);
+  --color-surface-50: oklch(0.97 0.005 270);
+  --color-surface-100: oklch(0.94 0.008 270);
+  --color-surface-200: oklch(0.90 0.01 270);
+  --color-surface-300: oklch(0.85 0.012 270);
+  --color-surface-800: oklch(0.20 0.02 270);
+  --color-surface-850: oklch(0.16 0.02 270);
+  --color-surface-900: oklch(0.13 0.02 270);
+  --color-surface-950: oklch(0.09 0.02 270);
+
+  /* Font families */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Animation durations */
+  --animate-duration-fast: 150ms;
+  --animate-duration-normal: 300ms;
+  --animate-duration-slow: 500ms;
+
+  /* Border radii */
+  --radius-panel: 16px;
+  --radius-node: 12px;
+  --radius-button: 10px;
+}
+
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ========================================
+   LIGHT THEME (default)
+   ======================================== */
+
+:root {
+  --bg-app: var(--color-surface-50);
+  --bg-panel: rgba(255, 255, 255, 0.72);
+  --bg-panel-solid: var(--color-surface-0);
+  --bg-canvas: var(--color-surface-100);
+  --bg-hover: var(--color-surface-200);
+  --bg-active: var(--color-primary-100);
+
+  --border-default: var(--color-surface-200);
+  --border-subtle: var(--color-surface-100);
+  --border-active: var(--color-primary-400);
+
+  --text-primary: oklch(0.15 0.01 270);
+  --text-secondary: oklch(0.45 0.02 270);
+  --text-tertiary: oklch(0.60 0.01 270);
+  --text-inverse: oklch(0.98 0.00 0);
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.15);
+
+  --glass-bg: rgba(255, 255, 255, 0.60);
+  --glass-border: rgba(255, 255, 255, 0.30);
+  --glass-blur: 16px;
+
+  /* Node visualization */
+  --node-default: var(--color-primary-500);
+  --node-highlight: var(--color-accent-500);
+  --node-active: var(--color-warning-500);
+  --node-visited: var(--color-primary-300);
+  --node-found: var(--color-success-500);
+  --node-error: var(--color-error-500);
+  --node-text: white;
+
+  --edge-default: var(--color-surface-300);
+  --edge-active: var(--color-primary-500);
+  --edge-traversal: var(--color-accent-500);
+}
+
+/* ========================================
+   DARK THEME
+   ======================================== */
+
+.dark {
+  --bg-app: var(--color-surface-950);
+  --bg-panel: rgba(20, 18, 30, 0.80);
+  --bg-panel-solid: var(--color-surface-900);
+  --bg-canvas: var(--color-surface-900);
+  --bg-hover: var(--color-surface-800);
+  --bg-active: oklch(0.25 0.06 270);
+
+  --border-default: oklch(0.25 0.02 270);
+  --border-subtle: oklch(0.20 0.015 270);
+  --border-active: var(--color-primary-500);
+
+  --text-primary: oklch(0.93 0.005 270);
+  --text-secondary: oklch(0.65 0.015 270);
+  --text-tertiary: oklch(0.50 0.01 270);
+  --text-inverse: oklch(0.10 0.00 0);
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3), 0 1px 4px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.25);
+
+  --glass-bg: rgba(20, 18, 30, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-blur: 20px;
+
+  --node-default: var(--color-primary-400);
+  --node-highlight: var(--color-accent-400);
+  --node-active: var(--color-warning-400);
+  --node-visited: var(--color-primary-700);
+  --node-found: var(--color-success-400);
+  --node-error: var(--color-error-400);
+  --node-text: white;
+
+  --edge-default: oklch(0.35 0.02 270);
+  --edge-active: var(--color-primary-400);
+  --edge-traversal: var(--color-accent-400);
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+}
+
+/* ========================================
+   GLASSMORPHISM UTILITIES
+   ======================================== */
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
+}
+
+.glass-panel-solid {
+  background: var(--bg-panel-solid);
+  border: 1px solid var(--border-default);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ========================================
+   SCROLLBAR STYLING
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}
+
+/* ========================================
+   CUSTOM ANIMATIONS
+   ======================================== */
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  from { transform: translateX(-16px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(16px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slide-in-up {
+  from { transform: translateY(16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes scale-in {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+  50% { box-shadow: 0 0 20px 4px rgba(99, 102, 241, 0.3); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-in { animation: fade-in 0.3s ease-out; }
+.animate-slide-in-left { animation: slide-in-left 0.3s ease-out; }
+.animate-slide-in-right { animation: slide-in-right 0.3s ease-out; }
+.animate-slide-in-up { animation: slide-in-up 0.3s ease-out; }
+.animate-scale-in { animation: scale-in 0.25s ease-out; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+
+/* ========================================
+   VISUALIZATION CANVAS
+   ======================================== */
+
+.viz-canvas {
+  background-image: radial-gradient(circle, var(--border-subtle) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ========================================
+   PSEUDOCODE HIGHLIGHTING
+   ======================================== */
+
+.pseudocode-line {
+  transition: background-color 0.2s ease, color 0.2s ease;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+.pseudocode-line.active {
+  background-color: var(--bg-active);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* ========================================
+   RESPONSIVE UTILITIES
+   ======================================== */
+
+@media (max-width: 768px) {
+  .sidebar-left, .sidebar-right {
+    position: fixed;
+    z-index: 50;
+    height: 100vh;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .sidebar-left { left: 0; transform: translateX(-100%); }
+  .sidebar-left.open { transform: translateX(0); }
+  .sidebar-right { right: 0; transform: translateX(100%); }
+  .sidebar-right.open { transform: translateX(0); }
+}
