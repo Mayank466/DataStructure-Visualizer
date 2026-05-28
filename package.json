@@ -1,6 +1,7 @@
 {
   "name": "data-stucture-visualizer",
   "private": true,
+  "homepage": "https://dsvisualizer.me",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
