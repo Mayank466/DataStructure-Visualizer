@@ -1,73 +1,115 @@
-# React + TypeScript + Vite
+# 🧩 Data Structure Visualizer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive, web-based tool for visualizing and animating core data structures in real time. Built to help students, educators, and developers build strong intuition for how data is organized and manipulated under the hood.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Features
 
-## React Compiler
+- **Interactive Visualizations** — See data structures rendered graphically, not just as code
+- **Step-by-Step Animation** — Watch insertions, deletions, and traversals animate one operation at a time
+- **Multiple Data Structures** — Covers arrays, linked lists, stacks, queues, trees, and graphs
+- **Real-Time Controls** — Insert, delete, and search with instant visual feedback
+- **Algorithm Walkthroughs** — Trace BFS, DFS, sorting algorithms, and more
+- **Clean UI** — Minimal, distraction-free interface focused on learning
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 📦 Supported Data Structures
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Structure | Operations Supported |
+|---|---|
+| Array | Insert, Delete, Search, Sort |
+| Linked List | Append, Prepend, Delete, Traverse |
+| Stack | Push, Pop, Peek |
+| Queue | Enqueue, Dequeue, Peek |
+| Binary Search Tree | Insert, Delete, Search, Inorder/Preorder/Postorder |
+| Graph | Add Node/Edge, BFS, DFS |
+| Heap (Min/Max) | Insert, Extract, Heapify |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠️ Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Frontend** — React / HTML / CSS / JavaScript *(update as needed)*
+- **Animations** — CSS transitions / D3.js / Framer Motion *(update as needed)*
+- **Build Tool** — Vite / Create React App *(update as needed)*
+
+---
+
+## 📁 Project Structure
+
+```
+data-structure-visualizer/
+├── public/
+├── src/
+│   ├── components/       # Reusable UI components
+│   ├── structures/       # Logic for each data structure
+│   ├── visualizers/      # Rendering and animation logic
+│   ├── utils/            # Helper functions
+│   └── App.jsx           # Root component
+├── package.json
+└── README.md
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ⚙️ Getting Started
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Prerequisites
+
+- Node.js v16+
+- npm or yarn
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/data-structure-visualizer.git
+
+# Navigate into the project
+cd data-structure-visualizer
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
 ```
+
+Then open [http://localhost:5173](http://localhost:5173) in your browser.
+
+---
+
+## 🧪 Running Tests
+
+```bash
+npm run test
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! To get started:
+
+1. Fork the repository
+2. Create a new branch: `git checkout -b feature/your-feature-name`
+3. Make your changes and commit: `git commit -m "Add your feature"`
+4. Push to your fork: `git push origin feature/your-feature-name`
+5. Open a Pull Request
+
+Please follow the existing code style and add comments where helpful.
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 🙌 Acknowledgements
+
+- Inspired by tools like [VisuAlgo](https://visualgo.net) and [CS50](https://cs50.harvard.edu/)
+- Built with ❤️ for learners everywhere
