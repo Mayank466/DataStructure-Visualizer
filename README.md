@@ -67,7 +67,7 @@ data-structure-visualizer/
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/data-structure-visualizer.git
+git clone https://github.com/Mayank466/data-structure-visualizer.git
 
 # Navigate into the project
 cd data-structure-visualizer
