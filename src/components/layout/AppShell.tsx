@@ -49,7 +49,7 @@ export function AppShell() {
             <Menu size={16} />
           </motion.button>
           <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
-            DSVisualizer_test
+            DSVisualizer
           </span>
           <motion.button
             onClick={toggleRightSidebar}
