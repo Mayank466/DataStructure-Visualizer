@@ -2,6 +2,8 @@
 
 An interactive, web-based tool for visualizing and animating core data structures in real time. Built to help students, educators, and developers build strong intuition for how data is organized and manipulated under the hood.
 
+🌐 **Live Site:** [www.dsvisualizer.me](https://www.dsvisualizer.me)
+
 ---
 
 ## 🚀 Features
