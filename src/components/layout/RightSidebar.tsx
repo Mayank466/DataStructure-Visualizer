@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from 'motion/react'
 import { useVisualizerStore, useAnimationStore } from '@/stores'
 import { cn } from '@/utils/cn'
 import { Settings, Play, Pause, SkipForward, SkipBack, RotateCcw, Plus, Trash2, Search, Shuffle, X, TreePine } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { scheduler } from '@/engine/AnimationScheduler'
 
 interface RightSidebarProps {
@@ -58,16 +58,62 @@ export function RightSidebar({ onInsert, onDelete, onSearch, onRandom, onReset, 
   const handleStepBackward = () => scheduler.stepBackward()
   const handleResetPlayback = () => scheduler.stop()
 
+  const [panelHeightVh, setPanelHeightVh] = useState(45)
+  const isDragging = useRef(false)
+  const dragState = useRef({ startY: 0, startHeight: 45 })
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    if (window.innerWidth >= 768) return
+    isDragging.current = true
+    dragState.current = { startY: e.clientY, startHeight: panelHeightVh }
+    document.body.style.cursor = 'ns-resize'
+  }
+
+  useEffect(() => {
+    const handlePointerMove = (e: PointerEvent) => {
+      if (!isDragging.current) return
+      const deltaY = e.clientY - dragState.current.startY
+      const deltaVh = (deltaY / window.innerHeight) * 100
+      const newHeight = Math.max(15, Math.min(80, dragState.current.startHeight - deltaVh))
+      setPanelHeightVh(newHeight)
+    }
+    const handlePointerUp = () => {
+      if (isDragging.current) {
+        isDragging.current = false
+        document.body.style.cursor = ''
+      }
+    }
+    window.addEventListener('pointermove', handlePointerMove)
+    window.addEventListener('pointerup', handlePointerUp)
+    window.addEventListener('pointercancel', handlePointerUp)
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove)
+      window.removeEventListener('pointerup', handlePointerUp)
+      window.removeEventListener('pointercancel', handlePointerUp)
+    }
+  }, [])
+
   return (
     <>
       <aside
         className={cn(
           'sidebar-right flex flex-col w-full md:w-[280px] shrink-0 overflow-hidden',
-          'h-[45vh] md:h-full z-30',
+          'md:!h-full z-30',
           'glass-panel-solid border-t md:border-l md:border-t-0'
         )}
-        style={{ borderColor: 'var(--border-default)' }}
+        style={{ 
+          borderColor: 'var(--border-default)',
+          height: window.innerWidth < 768 ? `${panelHeightVh}vh` : undefined
+        }}
       >
+        {/* Resize Handle (Mobile Only) */}
+        <div 
+          className="md:hidden flex justify-center py-2 cursor-ns-resize touch-none shrink-0"
+          onPointerDown={handlePointerDown}
+          style={{ background: 'var(--bg-canvas)' }}
+        >
+          <div className="w-12 h-1.5 rounded-full" style={{ background: 'var(--border-active)' }} />
+        </div>
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b shrink-0"
           style={{ borderColor: 'var(--border-subtle)' }}>
