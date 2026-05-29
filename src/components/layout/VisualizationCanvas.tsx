@@ -5,6 +5,7 @@ import { NodeRenderer } from '@/components/visualization/NodeRenderer'
 import { EdgeRenderer } from '@/components/visualization/EdgeRenderer'
 import type { DataStructureType } from '@/types'
 import { useMemo, useRef, useEffect, useState } from 'react'
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch'
 
 /** Determine node shape based on DS type */
 function getNodeShape(dsType: DataStructureType): 'circle' | 'rect' {
@@ -114,23 +115,37 @@ export function VisualizationCanvas() {
             </motion.div>
           </div>
         ) : (
-          /* SVG Visualization */
-          <svg
-            width={dimensions.width}
-            height={dimensions.height}
-            className="w-full h-full"
-            style={{ overflow: 'visible' }}
-          >
-            {/* Edges first (below nodes) */}
-            {activeState.edges.map((edge) => (
-              <EdgeRenderer key={edge.id} edge={edge} nodes={activeState.nodes} />
-            ))}
+          /* SVG Visualization with Zoom and Pan Support */
+          <div className="w-full h-full cursor-grab active:cursor-grabbing">
+            <TransformWrapper
+              initialScale={1}
+              minScale={0.2}
+              maxScale={5}
+              limitToBounds={false}
+              centerZoomedOut={true}
+              wheel={{ step: 0.1 }}
+              pinch={{ step: 5 }}
+            >
+              <TransformComponent wrapperStyle={{ width: '100%', height: '100%' }}>
+                <svg
+                  width={Math.max(dimensions.width, ...activeState.nodes.map(n => n.x + 100))}
+                  height={Math.max(dimensions.height, ...activeState.nodes.map(n => n.y + 100))}
+                  className="min-w-full min-h-full"
+                  style={{ overflow: 'visible' }}
+                >
+                  {/* Edges first (below nodes) */}
+                  {activeState.edges.map((edge) => (
+                    <EdgeRenderer key={edge.id} edge={edge} nodes={activeState.nodes} />
+                  ))}
 
-            {/* Nodes */}
-            {activeState.nodes.map((node) => (
-              <NodeRenderer key={node.id} node={node} shape={nodeShape} />
-            ))}
-          </svg>
+                  {/* Nodes */}
+                  {activeState.nodes.map((node) => (
+                    <NodeRenderer key={node.id} node={node} shape={nodeShape} />
+                  ))}
+                </svg>
+              </TransformComponent>
+            </TransformWrapper>
+          </div>
         )}
       </div>
 

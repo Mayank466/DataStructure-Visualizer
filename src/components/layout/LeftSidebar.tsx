@@ -63,7 +63,7 @@ export function LeftSidebar() {
 
       <aside
         className={cn(
-          'sidebar-left flex flex-col h-full w-[260px] overflow-hidden',
+          'sidebar-left flex flex-col h-full w-[260px] shrink-0 overflow-hidden',
           'glass-panel-solid',
           'border-r',
           leftSidebarOpen && 'open'

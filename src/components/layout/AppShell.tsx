@@ -25,59 +25,62 @@ export function AppShell() {
   } = useDataStructureController()
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden" style={{ background: 'var(--bg-app)' }}>
+    <div className="flex flex-col md:flex-row h-[100dvh] w-full overflow-hidden" style={{ background: 'var(--bg-app)' }}>
       {/* Left Sidebar */}
       <LeftSidebar />
 
-      {/* Center + Bottom */}
-      <div className="flex flex-col flex-1 min-w-0 h-full">
-        {/* Mobile top bar */}
-        <div
-          className="md:hidden flex items-center justify-between px-4 py-2 border-b shrink-0"
-          style={{
-            background: 'var(--bg-panel-solid)',
-            borderColor: 'var(--border-default)',
-          }}
-        >
-          <motion.button
-            onClick={toggleLeftSidebar}
-            className="flex items-center justify-center w-9 h-9 rounded-xl cursor-pointer"
-            style={{ background: 'var(--bg-hover)', color: 'var(--text-secondary)' }}
-            whileTap={{ scale: 0.9 }}
-            aria-label="Open structure selection"
+      {/* Center + Right wrapper */}
+      <div className="flex flex-col md:flex-row flex-1 min-w-0 h-full">
+        
+        {/* Canvas + BottomPanel wrapper (unwraps on mobile to allow reordering) */}
+        <div className="contents md:flex md:flex-col md:flex-1 md:min-w-0 md:h-full">
+          
+          {/* Mobile top bar */}
+          <div
+            className="order-1 md:hidden flex items-center justify-between px-4 py-2 border-b shrink-0"
+            style={{
+              background: 'var(--bg-panel-solid)',
+              borderColor: 'var(--border-default)',
+            }}
           >
-            <Menu size={16} />
-          </motion.button>
-          <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
-            DSVisualizer
-          </span>
-          <motion.button
-            onClick={toggleRightSidebar}
-            className="flex items-center justify-center w-9 h-9 rounded-xl cursor-pointer"
-            style={{ background: 'var(--bg-hover)', color: 'var(--text-secondary)' }}
-            whileTap={{ scale: 0.9 }}
-            aria-label="Open controls"
-          >
-            <PanelRight size={16} />
-          </motion.button>
+            <motion.button
+              onClick={toggleLeftSidebar}
+              className="flex items-center justify-center w-9 h-9 rounded-xl cursor-pointer"
+              style={{ background: 'var(--bg-hover)', color: 'var(--text-secondary)' }}
+              whileTap={{ scale: 0.9 }}
+              aria-label="Open structure selection"
+            >
+              <Menu size={16} />
+            </motion.button>
+            <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
+              DSVisualizer
+            </span>
+            <div className="w-9 h-9" />
+          </div>
+
+          {/* Visualization Canvas */}
+          <div className="order-2 flex-1 min-h-0 relative">
+            <VisualizationCanvas />
+          </div>
+
+          {/* Bottom Panel */}
+          <div className="order-4 shrink-0">
+            <BottomPanel />
+          </div>
         </div>
 
-        {/* Visualization Canvas */}
-        <VisualizationCanvas />
-
-        {/* Bottom Panel */}
-        <BottomPanel />
+        {/* Right Sidebar */}
+        <div className="order-3 shrink-0 flex flex-col">
+          <RightSidebar
+            onInsert={handleInsert}
+            onDelete={handleDelete}
+            onSearch={handleSearch}
+            onRandom={handleRandom}
+            onReset={handleReset}
+            onTraverse={handleTraverse}
+          />
+        </div>
       </div>
-
-      {/* Right Sidebar */}
-      <RightSidebar
-        onInsert={handleInsert}
-        onDelete={handleDelete}
-        onSearch={handleSearch}
-        onRandom={handleRandom}
-        onReset={handleReset}
-        onTraverse={handleTraverse}
-      />
     </div>
   )
 }

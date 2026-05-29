@@ -60,24 +60,11 @@ export function RightSidebar({ onInsert, onDelete, onSearch, onRandom, onReset, 
 
   return (
     <>
-      <AnimatePresence>
-        {rightSidebarOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 md:hidden"
-            style={{ background: 'rgba(0,0,0,0.5)' }}
-            onClick={() => setRightSidebar(false)}
-          />
-        )}
-      </AnimatePresence>
-
       <aside
         className={cn(
-          'sidebar-right flex flex-col h-full w-[280px] overflow-hidden',
-          'glass-panel-solid border-l',
-          rightSidebarOpen && 'open'
+          'sidebar-right flex flex-col w-full md:w-[280px] shrink-0 overflow-hidden',
+          'h-[45vh] md:h-full z-30',
+          'glass-panel-solid border-t md:border-l md:border-t-0'
         )}
         style={{ borderColor: 'var(--border-default)' }}
       >
@@ -88,14 +75,6 @@ export function RightSidebar({ onInsert, onDelete, onSearch, onRandom, onReset, 
             <Settings size={14} style={{ color: 'var(--text-tertiary)' }} />
             <h2 className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>Controls</h2>
           </div>
-          <button
-            className="md:hidden flex items-center justify-center w-8 h-8 rounded-lg cursor-pointer"
-            style={{ background: 'var(--bg-hover)', color: 'var(--text-secondary)' }}
-            onClick={() => setRightSidebar(false)}
-            aria-label="Close controls"
-          >
-            <X size={14} />
-          </button>
         </div>
 
         <div className="flex-1 overflow-y-auto">
